@@ -165,7 +165,7 @@ def Shy():
 
 def GoodShake():
     print1("The viking is surprised, but delighted by your warrior etiquette")
-    print1("He introduces himself as Sven Svenson")
+    print1("He introduces himself as Sven Svenson, and you introduce yourself as well")
     print2("He buys you another round, and invites you to his table")
     sit = input("Do you sit with him? [Y/N] ").lower().strip()
     if sit ==  "y":
@@ -181,10 +181,18 @@ def BroShake():
     print2("He smiles at you in appreciation of your courtesy")
     print2("When you then try to swing into a bro hug, he is surprized but elated.")
     print2("(Little did you know, vikings in this world are big huggers)")
-    print2("He releases your hand and goes for a full bear hug")
+    print1("He releases your hand and goes for a full bear hug")
     print1("His arms wrap around your ribcage like iron bands")
-    print()
-    Again()
+    print2("The breath violently whooshes out of your lungs as he squeezes")
+    print1("You start to see black spots in your vision")
+    print2("You try to 'tap out' but he just things you're patting his back \
+prolonging the hug")
+    print1("Luckily, the grumpy looking viking gets up from the table and smacks \
+the viking crushing you on the back of the head")
+    print1("This startles him enough that he loosens his grip on you")
+    print2("You gasp air like your life depends on it.")
+    print2("'You were crushing the poor creature, Sven!' he says")
+    Hold()
 
 def DrinkingPal():
     print1("The viking in the corner also chugs his mead, and slams the mug on the table")
@@ -216,7 +224,7 @@ def DrinkingPal():
 
 def Mead():
     print2("The bartender hands you a large mug of mead.")
-    print2("The viking in the corner lifts his mug in salute.")
+    print2("One of the vikings in the corner lifts his mug in salute.")
     print1("Do you:")
     print("A) Chug it")
     print("OR")
@@ -306,8 +314,8 @@ def Tavern():
     if brawl == "y":
         RM()
         print1("That was a bad idea.")
-        print1("There was a very large viking in the corner that you failed to notice.")
-        print2("He bludgeons you in the head trying to stop the fight.")
+        print1("There was some very large vikings in the corner that you failed to notice.")
+        print2("One of them gets up and bludgeons you in the head trying to stop the fight.")
         print2("But he is too strong for his own good.")
         print2("You died.")
         print("THE END")
@@ -315,7 +323,8 @@ def Tavern():
         Again()
     elif brawl == "n":
         RM()
-        print2("Good choice, a very large, slightly grumpy viking was sitting in the corner.")
+        print2("Good choice, several vikings were sitting in the corner, \
+    one of whom looks quite grumpy.")
         Bar()
     else:
         SayAgain()
@@ -338,6 +347,7 @@ def Badluck(): #This will only show up the first time you fail the coin filp
     print1("but no one comes close enough to find you.")
     print2("You slowly waste away, lost in dreams")
     print2("You died.")
+    print2("And to add insult to injury, a witch stole your shoes.")
     print2("THE END")
     print2("...")
     print1("Would you like to try your luck with coin flip again?")
