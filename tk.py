@@ -43,9 +43,9 @@ txt.pack(side = tk.BOTTOM)
 txt.yview(tk.END)
 toplabel.pack(side = tk.TOP)
 
-txt.insert(tk.INSERT, 'Welcome to the Adventure Zone!')
+txt.insert(tk.INSERT, 'Welcome to the Adventure Zone!\n')
+txt.insert(tk.INSERT, 'Would you like to play a game?')
 txt.configure(state = 'disabled')
-
 
 def changelabel(text):
     toplabel["text"] = text
@@ -53,15 +53,49 @@ def changelabel(text):
 def clear_text():
     userin.delete(0, tk.END)
 
+def woods(event=None):
+    print1("placeholder")
+    pass
+
+def tavern(event=None):
+    print1("placeholder")
+    pass
+
+def choice1(event=None):
+    whereto = userin.get().lower().strip()
+    if whereto == "woods":
+        print1("The woods are spooky")
+        button["command"] = woods
+    elif whereto == "tavern":
+        print1("The tavern is crowded")
+        button["command"] = tavern
+    else:
+        print1("What?")
+        print1("Woods or Tavern?")
+
+
 def clicked(event=None):
+    start = userin.get().lower().strip()
     print1(userin.get())
     clear_text()
     changelabel("Let's go!")
+    if start == "y":
+        print1("Lets go!")
+        print1("Woods or Tavern?")
+        button["command"] = choice1
+    elif start == "n":
+        print1("Ok bye!")
+    else:
+        print1("What?")
+        print1("Do you want to play a game?")
 
-root.bind('<Return>', clicked)
-
+#root.bind('<Return>', clicked)
 button = tk.Button(bottomframe, text = "enter", command = clicked)
 button.pack(side = tk.RIGHT)
+#button2 = tk.Button(bottomframe, text = "enter", command = choice1)
+#button3 = tk.Button(bottomframe, text = "enter", command = woods)
+#button4 = tk.Button(bottomframe, text = "enter", command = tavern)
+
 
 """
 def game():
