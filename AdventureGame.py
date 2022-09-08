@@ -35,12 +35,18 @@ def print2(text): # same as print 1 but leaves a blank line after
     txt.insert(tk.END,"\n")
     txt.configure(state = 'disabled')
     txt.see(tk.END)
-<<<<<<< HEAD
 
 #method for changing the command of the button and the return key at the same
 #time to make it easier to swap commands for the choice tree
 def changecmd(function):
     button["command"] = function
     root.bind('<Return>', function)
-=======
->>>>>>> f2d3dff48560acbde6dae567158d335310f23316
+
+def uip(): # stands for User InPut - shorthand for pulling input from Entry Widget
+    return userin.get()
+
+def uiplow(): #User InPut but lower case - strips input for downstream uses
+    return userin.get().lower().strip()
+
+def uiprint(): #gets user input, prints it, and then strips it
+    print1(uip())
