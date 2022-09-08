@@ -51,6 +51,13 @@ def uiplow(): #User InPut but lower case - strips input for downstream uses
 def uiprint(): #gets user input, prints it, and then strips it
     print1(uip())
 
+def nutext(text): #way to easily change the global vairable in a function
+    globals()["cu_te"] = text
+
+def what(): # function for completing if/else statements - repeats choice
+    print1("What?")
+    print1(cu_te)
+
 root = tk.Tk() #creating main window
 
 bottomframe = tk.Frame(root) #creating bottom frame to put entry and button in
@@ -70,8 +77,11 @@ txt.yview(tk.END) #always scrolls to newest text
 toplabel.grid(column = 0, row = 0, ipady = 10, sticky='ew') #placing the label at the top of the window - centered
 
 txt.insert(tk.INSERT, 'Welcome to the Adventure Zone!\n') #inserting starting text into widget
-txt.insert(tk.INSERT, 'Would you like to play a game?') #first choice prompt
+cu_te = "Would you like to play a game?"
+txt.insert(tk.INSERT, cu_te) #first choice prompt
 txt.configure(state = 'disabled') #makes scrollbox uneditable
+
+
 
 def changelabel(text): #function to change the text of the label - want to later impliment "bookmarks"
     toplabel["text"] = text
@@ -94,14 +104,15 @@ def choice1(event=None): #first choice - used for testing GUI function
     whereto = uiplow() #uses lowercase version of input for variable
     empty() #empties entry widget
     if whereto == "woods":
-        print1("The woods are spooky")#This will have descriptions of the next event, as well as the next choice to be made
+        nutext("The woods are spooky")
+        print1(cu_te)#This will have descriptions of the next event, as well as the next choice to be made
         changecmd(woods) #changes button command to the next event so it's prepared to recieve the next input
     elif whereto == "tavern":
         print1("The tavern is crowded") #same as "woods" but going to a different event
         changecmd(tavern)
     else:
-        print1("What?") #in case the user has a typo or something we want to alert them.
-        print1("Woods or Tavern?") #prompts the user with the current choice - the button command remains the same for now
+        what() #in case the user has a typo or something we want to alert them.
+        #print1("Woods or Tavern?") #prompts the user with the current choice - the button command remains the same for now
 
 #first button click function - basic start of game  - need to add exit if they choose not to play
 def clicked(event=None):
@@ -112,13 +123,15 @@ def clicked(event=None):
     changelabel("Let's go!")
     if start == "y":
         print1("Lets go!")
-        print1("Woods or Tavern?")
+        nutext("Woods or Tavern?")
+        print1(cu_te)
         changecmd(choice1)
     elif start == "n":
         print1("Ok bye!")
     else:
-        print1("What?")
-        print1("Do you want to play a game?")
+        what()
+
+
 
 button = tk.Button(bottomframe, text = "Enter", font = font2, command = clicked) #creating button
 button.grid(column = 1, row = 0, ipadx = 10, sticky = "e") #button sticks to right hand side and doesn't change with the window
