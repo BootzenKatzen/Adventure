@@ -88,16 +88,49 @@ def tavern(event=None): #placeholder event
     print1("placeholder")
     pass
 
+#this is an example of a choice function in the game - I'll only note this one since the others should be the same
 def choice1(event=None): #first choice - used for testing GUI function
-    uiprint()
-    whereto = uiplow()
-    empty()
+    uiprint() #will print the user input after button click
+    whereto = uiplow() #uses lowercase version of input for variable
+    empty() #empties entry widget
     if whereto == "woods":
-        print1("The woods are spooky")
-        changecmd(woods)
+        print1("The woods are spooky")#This will have descriptions of the next event, as well as the next choice to be made
+        changecmd(woods) #changes button command to the next event so it's prepared to recieve the next input
     elif whereto == "tavern":
-        print1("The tavern is crowded")
+        print1("The tavern is crowded") #same as "woods" but going to a different event
         changecmd(tavern)
     else:
-        print1("What?")
+        print1("What?") #in case the user has a typo or something we want to alert them.
+        print1("Woods or Tavern?") #prompts the user with the current choice - the button command remains the same for now
+
+#first button click function - basic start of game  - need to add exit if they choose not to play
+def clicked(event=None):
+    uiprint()
+    start = uiplow()
+    empty()
+    toplabel.configure(font = font1)
+    changelabel("Let's go!")
+    if start == "y":
+        print1("Lets go!")
         print1("Woods or Tavern?")
+        changecmd(choice1)
+    elif start == "n":
+        print1("Ok bye!")
+    else:
+        print1("What?")
+        print1("Do you want to play a game?")
+
+button = tk.Button(bottomframe, text = "Enter", font = font2, command = clicked) #creating button
+button.grid(column = 1, row = 0, ipadx = 10, sticky = "e") #button sticks to right hand side and doesn't change with the window
+
+root.bind('<Return>', clicked) #return key = button click
+
+bottomframe.grid_columnconfigure(0, weight =1) #adding weight so they expand
+bottomframe.grid_columnconfigure(1, weight = 0)
+
+root.grid_rowconfigure(0, weight = 0)
+root.grid_rowconfigure(1, weight = 2)
+root.grid_rowconfigure(2, weight = 0)
+root.grid_columnconfigure(0, weight = 1)
+
+root.mainloop() #starts GUI/game
