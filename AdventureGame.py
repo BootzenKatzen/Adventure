@@ -8,3 +8,12 @@
 
 #It has to be text -> choice given -> button press for choice ->
 #new text -> new choice -> new function assigned to button
+
+import tkinter as tk #needed for gui
+
+import tkinter.scrolledtext as st #for text box
+
+#establish game fonts
+font1 = ("Arial", 16, "bold")  #normal font for label
+font2 = ("Arial", 12, "normal")#for button and text
+font3 = ("Algerian", 20) #starting font for label for big "Welcome"
