@@ -50,3 +50,25 @@ def uiplow(): #User InPut but lower case - strips input for downstream uses
 
 def uiprint(): #gets user input, prints it, and then strips it
     print1(uip())
+
+root = tk.Tk() #creating main window
+
+bottomframe = tk.Frame(root) #creating bottom frame to put entry and button in
+bottomframe.grid(column=0, row =2, sticky = 'ew')
+root.title("Adventure Zone") #setting window bar label
+root.geometry('500x500') #setting window size
+txt = st.ScrolledText(root, width='40', height='15', wrap=tk.WORD)
+#not sure if setting scrolled text size is important since it's sticky,
+txt.configure(font = font2)
+toplabel = tk.Label(root, text = "Welcome!") #label above text widget
+toplabel.configure(font = font3)
+userin = tk.Entry(bottomframe, width = '60') #entry widget user interacts with
+userin.grid(column=0, row=0, sticky="ew") #place entry widget to the left in the bottom frome
+
+txt.grid(column=0, row=1, sticky="nsew") #makes text entry expand to window size
+txt.yview(tk.END) #always scrolls to newest text
+toplabel.grid(column = 0, row = 0, ipady = 10, sticky='ew') #placing the label at the top of the window
+
+txt.insert(tk.INSERT, 'Welcome to the Adventure Zone!\n') #inserting starting text into widget
+txt.insert(tk.INSERT, 'Would you like to play a game?') #first choice prompt
+txt.configure(state = 'disabled')
