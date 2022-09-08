@@ -63,12 +63,41 @@ txt.configure(font = font2)
 toplabel = tk.Label(root, text = "Welcome!") #label above text widget
 toplabel.configure(font = font3)
 userin = tk.Entry(bottomframe, width = '60') #entry widget user interacts with
-userin.grid(column=0, row=0, sticky="ew") #place entry widget to the left in the bottom frome
+userin.grid(column=0, row=0, sticky="ew") #place entry widget to the left in the bottom frome - expands to fit window
 
-txt.grid(column=0, row=1, sticky="nsew") #makes text entry expand to window size
+txt.grid(column=0, row=1, sticky="nsew") #makes text entry expand sideways to window size
 txt.yview(tk.END) #always scrolls to newest text
-toplabel.grid(column = 0, row = 0, ipady = 10, sticky='ew') #placing the label at the top of the window
+toplabel.grid(column = 0, row = 0, ipady = 10, sticky='ew') #placing the label at the top of the window - centered
 
 txt.insert(tk.INSERT, 'Welcome to the Adventure Zone!\n') #inserting starting text into widget
 txt.insert(tk.INSERT, 'Would you like to play a game?') #first choice prompt
-txt.configure(state = 'disabled')
+txt.configure(state = 'disabled') #makes scrollbox uneditable
+
+def changelabel(text): #function to change the text of the label - want to later impliment "bookmarks"
+    toplabel["text"] = text
+
+def empty(): #empties the entry box - for use after button press
+    userin.delete(0, tk.END)
+
+
+def woods(event=None): #placeholder event
+    print1("placeholder")
+    pass
+
+def tavern(event=None): #placeholder event
+    print1("placeholder")
+    pass
+
+def choice1(event=None): #first choice - used for testing GUI function
+    uiprint()
+    whereto = uiplow()
+    empty()
+    if whereto == "woods":
+        print1("The woods are spooky")
+        changecmd(woods)
+    elif whereto == "tavern":
+        print1("The tavern is crowded")
+        changecmd(tavern)
+    else:
+        print1("What?")
+        print1("Woods or Tavern?")
