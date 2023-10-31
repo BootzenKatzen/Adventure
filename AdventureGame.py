@@ -304,7 +304,7 @@ def again():
     empty()
     if play_again == 'y':
         begin()
-    elif play_again ='n':
+    elif play_again == 'n':
         end_game()
     else:
         what()
