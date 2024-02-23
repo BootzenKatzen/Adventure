@@ -1,0 +1,6 @@
+What would you like to do?
+
+A) Take a nap among the flowers
+B) Examine the flowers more closely
+C) Decide to explore the woods instead
+D) Go back to the tavern

@@ -1,0 +1,5 @@
+Do you want to:
+
+A) Approach the bartender for a drink
+B) Ask for a menu for some food
+C) Look around the room
