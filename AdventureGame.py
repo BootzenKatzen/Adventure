@@ -14,8 +14,6 @@ import tkinter as tk  # needed for gui
 
 import tkinter.scrolledtext as st  # for text box
 
-from time import time, sleep  # for adding pauses
-
 import os # for grabbing text files
 
 texts = {} # a dictionary for filenames and their texts
@@ -37,14 +35,6 @@ for f in os.scandir(path):
 # the name is stored as variable file_name
 # we read the contents of the file into a variable
 # then add a filename: contents entry to the dictionary
-
-def pause():
-
-    sleep(1)
-
-def long_pause():
-
-    sleep(3)
 
 # establish game fonts
 font1 = ("Arial", 16, "bold")  # normal font for label
