@@ -5,8 +5,10 @@ I just wanted to practice some coding by making a choose your own adventure game
 
 I've already learned quite a lot, really.
 My first attempt (on a different repository) mostly involved if statements and the text kept sliding farther and farther to the right, so it was getting harder to read.
-So this time I'm calling functions, so it doesn't keep tabbing over.
-It also makes it easier to call back to other decisions.
+
+So the second attempt (still available in prototypes) each call was a function, so I could call them individually instead of going farther and farther over with if statemnts. This also made it easier to call back to other decisions.
+
+Now I'm on the 3rd iteration, attempting to add a GUI with tkinter, which has also been quite the learning process.  I had to completely switch around how I thought about the choices in order to make the buttons work.  But I'm slowly getting there.
 
 If you want to test it by all means, go ahead.
 It SHOULD be playable - though the current file doesn't have much actual content yet.
