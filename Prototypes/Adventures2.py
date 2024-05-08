@@ -1,4 +1,4 @@
-soberimport random #needed for random integers for luck_check
+import random #needed for random integers for luck_check
 
 from time import sleep
 

@@ -1,0 +1,1 @@
+You wake up in a strange wood beside a path.  Do you want to go: 'left' or 'right'
