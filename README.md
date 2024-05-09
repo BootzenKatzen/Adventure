@@ -8,7 +8,9 @@ My first attempt (on a different repository) mostly involved if statements and t
 
 So the second attempt (still available in prototypes) each call was a function, so I could call them individually instead of going farther and farther over with if statemnts. This also made it easier to call back to other decisions.
 
-Now I'm on the 3rd iteration, attempting to add a GUI with tkinter, which has also been quite the learning process.  I had to completely switch around how I thought about the choices in order to make the buttons work.  But I'm slowly getting there.
+On the 3rd iteration, I tried attempting to add a GUI with tkinter, which has also been quite the learning process.  I had to completely switch around how I thought about the choices in order to make the buttons work.  But I'm slowly getting there.
+
+Now I'm on the 4th iteration.  I was really struggling with my previous GUI trying to change the functions for the buttons and such.  So I got a little help, and now it works much better.  I even added a way to revisit previous choices so you can skip ahead to where you left off.
 
 If you want to test it by all means, go ahead.
 It SHOULD be playable - though the current file doesn't have much actual content yet.
