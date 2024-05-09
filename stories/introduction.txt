@@ -1,0 +1,14 @@
+Welcome to Questies!
+
+This is a choose your own adventure game!
+Choices will be highlighted and in bold **like this**
+Just type in your answer, and away you go!
+
+You may want to keep track of your choices, because on a replay, you can type in a previous choice like "left" or "right" and be taken back to that point.
+This allows you to skip ahead if you want to jump back to where you left off.
+
+If you're ready to start... let's start at the 
+
+**beginning**
+
+(type beginning to start)
