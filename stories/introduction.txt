@@ -9,8 +9,6 @@ This allows you to skip ahead if you want to jump back to where you left off.
 
 By the way, you can type **quit** at any time to leave the game.
 
-If you're ready to start... let's start at the 
+If you're ready to start... 
 
-**beginning**
-
-(type beginning to start)
+Type **begin**

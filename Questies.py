@@ -10,6 +10,7 @@ class CustomAskString(simpledialog.Dialog):
     """
     Custom "simpledialog" to fix error
     Was previously not focusing on the dialogue on the second loop
+    needed the after and focus force to get it to cooperate
     """
 
     def __init__(self, parent, title, prompt):
@@ -24,7 +25,6 @@ class CustomAskString(simpledialog.Dialog):
         self.entry = tk.Entry(master)
         self.entry.pack()
         self.after(1, lambda: self.entry.focus_force())
-        #return self.entry  # Set the focus to the entry widget
 
     def apply(self):
         self.result = self.entry.get()  # Get the input from the entry widget
@@ -38,10 +38,10 @@ class AdventureGame:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Choose Your Own Adventure Game")
+        self.root.title("Questies!")
 
         # Define the desired font
-        self.custom_font = font.Font(family="Arial", size=14)
+        self.custom_font = font.Font(family="Calibri", size=16)
 
         # Set up the scrolled text widget
         self.story_text = scrolledtext.ScrolledText(root, font=self.custom_font, state=tk.DISABLED, wrap=tk.WORD)
@@ -116,7 +116,7 @@ class AdventureGame:
         self.root.update_idletasks()  # Update the main window
         keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root)
 
-        start_part = "beginning.txt" if not keyword_dialog else f"{keyword_dialog.lower()}.txt"
+        start_part = "begin.txt" if not keyword_dialog else f"{keyword_dialog.lower()}.txt"
         story_part = self.load_story_part(start_part)
         self.display_story_part(story_part)
         self.entry.focus_force()
