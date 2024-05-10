@@ -16,17 +16,9 @@ class Game:
         self.start_game()
 
     def start_game(self):
-        """
-        if not from_play_again:
-            response = simpledialog.askstring("Question", "Have you played before?")
-            if response.lower() == "no":
-                self.scrollbox.insert(tk.END, "Welcome!\n")
-            elif response.lower() == "yes":
-                self.scrollbox.insert(tk.END, "Let's play!\n")
-            else:
-                self.scrollbox.insert(tk.END, "I didn't catch that\n")
-        """
-        response = simpledialog.askstring("Question", "Did you win?")
+
+        self.root.update_idletasks()
+        response = simpledialog.askstring("Question", "Did you win?", parent=root)
         if response.lower() == "no":
             self.scrollbox.insert(tk.END, "Womp Womp!\n")
             self.play_again()
