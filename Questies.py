@@ -92,6 +92,8 @@ class AdventureGame:
 
     def handle_choice(self, event=None):
         choice = self.entry.get().replace(' ', '_')
+        if choice.lower() == 'quit':
+            self.root.quit()
         self.entry.delete(0, tk.END)
         next_part = f"{choice.lower()}.txt"
         story_part = self.load_story_part(next_part)
