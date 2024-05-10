@@ -6,7 +6,14 @@ import re
 
 
 class CustomAskString(simpledialog.Dialog):
+
+    """
+    Custom "simpledialog" to fix error
+    Was previously not focusing on the dialogue on the second loop
+    """
+
     def __init__(self, parent, title, prompt):
+
         self.prompt = prompt  # Store the prompt as an instance variable
         super().__init__(parent, title=title)  # Only pass the accepted arguments to the superclass
 
