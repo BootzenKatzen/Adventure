@@ -5,6 +5,7 @@ from tkinter import font
 import re
 
 class AdventureGame:
+
     def __init__(self, root):
         self.root = root
         self.root.title("Choose Your Own Adventure Game")
@@ -20,8 +21,6 @@ class AdventureGame:
         self.entry = tk.Entry(root, font=self.custom_font)
         self.entry.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=10)
         self.entry.bind("<Return>", self.handle_choice)
-        self.root.focus_set()
-
         # Start the game
         self.start_game()
 
@@ -77,7 +76,6 @@ class AdventureGame:
                 # If the player is new, show the introduction
                 intro_part = "introduction.txt"
                 story_part = self.load_story_part(intro_part)
-                self.entry.focus_set()
                 self.display_story_part(story_part)
                 return  # Return early to avoid asking for a keyword
 
@@ -92,7 +90,6 @@ class AdventureGame:
 
         start_part = "beginning.txt" if not keyword_dialog else f"{keyword_dialog.lower()}.txt"
         story_part = self.load_story_part(start_part)
-        self.entry.focus_set()
         self.display_story_part(story_part)
 
     def play_again(self):
