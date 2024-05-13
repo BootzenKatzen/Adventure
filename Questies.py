@@ -1,9 +1,7 @@
 import tkinter as tk
-from tkinter import simpledialog
-from tkinter import scrolledtext
-from tkinter import font
+from tkinter import simpledialog, scrolledtext, font, messagebox
 import re
-
+import os
 
 class CustomAskString(simpledialog.Dialog):
 
@@ -55,12 +53,19 @@ class AdventureGame:
         # Start the game
         self.start_game()
 
+    def get_story_filenames(self):
+        folder_name = "stories"  # Name of the subfolder where your story parts are stored
+        # List all files in the directory
+        files = os.listdir(folder_name)
+        # Filter out only .txt files and remove the file extension
+        txt_files = [os.path.splitext(file)[0] for file in files if file.endswith('.txt')]
+        return txt_files
+
     def find_valid_choices(self, story_part):
         # Use a regular expression to find all instances of text surrounded by double asterisks
         choices = re.findall(r'\*\*(.*?)\*\*', story_part)
         # Remove duplicates and convert to lowercase
         valid_choices = list(set(choice.replace(' ', '_').lower() for choice in choices))
-        print("Valid choices found:", valid_choices)
         return valid_choices
 
     def load_story_part(self, filename):
@@ -109,7 +114,6 @@ class AdventureGame:
 
     def handle_choice(self, event=None):
         choice = self.entry.get().replace(' ', '_')
-        print("User entered:", choice)
         if choice.lower() in self.valid_choices:
             next_part = f"{choice.lower()}.txt"
             story_part = self.load_story_part(next_part)
@@ -123,9 +127,15 @@ class AdventureGame:
 
     def start_game(self, from_play_again=False):
 
+        self.valid_choices = self.get_story_filenames()
         if not from_play_again:
             # Ask the player if they have played before only if not coming from play again
-            played_before = simpledialog.askstring("Welcome!", "Hello! Welcome! Have you played before? (yes/no)", parent=root)
+            while True:
+                played_before = simpledialog.askstring("Welcome!", "Hello! Welcome! Have you played before? (yes/no)", parent=root)
+                if played_before and played_before.lower() in ['yes', 'no']:
+                    break
+                else:
+                    messagebox.showerror("Invalid Input", "Please type 'yes' or 'no'")
             if played_before and played_before.lower() == 'no':
                 # If the player is new, show the introduction
                 self.entry.focus_force()
@@ -136,7 +146,12 @@ class AdventureGame:
 
 
         self.root.update_idletasks()  # Update the main window
-        keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root)
+        while True:
+            keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root)
+            if keyword_dialog is None or keyword_dialog == '' or keyword_dialog.lower() in self.valid_choices:
+                break
+            else:
+                messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
 
         start_part = "begin.txt" if not keyword_dialog else f"{keyword_dialog.lower()}.txt"
         story_part = self.load_story_part(start_part)
@@ -144,7 +159,12 @@ class AdventureGame:
         self.entry.focus_force()
 
     def play_again(self):
-        answer = ask_custom_string("Play Again", "Do you want to play again? (yes/no)", parent=root)
+        while True:
+            answer = ask_custom_string("Play Again", "Do you want to play again? (yes/no)", parent=root)
+            if answer and answer.lower() in ['yes', 'no']:
+                break
+            else:
+                messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
         if answer and answer.lower() == 'yes':
             self.story_text.config(state=tk.NORMAL)
             self.story_text.delete('1.0', tk.END)
