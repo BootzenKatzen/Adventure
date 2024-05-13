@@ -38,8 +38,11 @@ class AdventureGame:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("Questies!")
 
+        self.root.title("Choose Your Own Adventure Game")
+        self.valid_choices = []
+        self.current_story_part = ''
+      
         # Define the desired font
         self.custom_font = font.Font(family="Calibri", size=16)
 
@@ -53,6 +56,14 @@ class AdventureGame:
         self.entry.bind("<Return>", self.handle_choice)
         # Start the game
         self.start_game()
+
+    def find_valid_choices(self, story_part):
+        # Use a regular expression to find all instances of text surrounded by double asterisks
+        choices = re.findall(r'\*\*(.*?)\*\*', story_part)
+        # Remove duplicates and convert to lowercase
+        valid_choices = list(set(choice.replace(' ', '_').lower() for choice in choices))
+        print("Valid choices found:", valid_choices)
+        return valid_choices
 
     def load_story_part(self, filename):
         folder_name = "stories"  # Name of the subfolder
@@ -68,11 +79,12 @@ class AdventureGame:
         # Create a new bold font object and define a highlight tag
         bold_font = font.Font(family="Arial", size=14, weight='bold')
         highlight_color = 'PaleGreen'  # Choose a highlight color
-
+        self.current_story_part = story_part
+        self.valid_choices = self.find_valid_choices(story_part)
+        # Enable the text widget for editing
         self.story_text.config(state=tk.NORMAL)
-        self.story_text.delete('1.0', tk.END)  # Clear the current text
 
-        # Split the story part by '**' and process for bold and highlight formatting
+        # Insert the new story part at the end
         parts = re.split(r'(\*\*.*?\*\*)', story_part)
         for part in parts:
             if part.startswith('**') and part.endswith('**'):
@@ -81,23 +93,35 @@ class AdventureGame:
                 self.story_text.insert(tk.END, bold_text, ('bold', 'highlight'))
             else:
                 self.story_text.insert(tk.END, part)
+
+        # Configure font and highlight tags
+        self.story_text.insert(tk.END, '\n\n')
         self.story_text.tag_configure('bold', font=bold_font)
         self.story_text.tag_configure('highlight', background=highlight_color)
 
+        # Disable editing again
         self.story_text.config(state=tk.DISABLED)
+
+        # Scroll to the end
         self.story_text.yview(tk.END)
+
         # Check if the story part contains "THE END"
         if "THE END" in story_part:
             self.play_again()
 
     def handle_choice(self, event=None):
         choice = self.entry.get().replace(' ', '_')
-        if choice.lower() == 'quit':
+        print("User entered:", choice)
+        if choice.lower() in self.valid_choices:
+            next_part = f"{choice.lower()}.txt"
+            story_part = self.load_story_part(next_part)
+            self.display_story_part(story_part)
+        elif choice.lower() == 'quit':
             self.root.quit()
+        else:
+            # If the input is not a valid choice, display an error message and repeat the last part
+            self.display_story_part("I'm sorry, I didn't understand that. Please try again.\n\n" + self.current_story_part)
         self.entry.delete(0, tk.END)
-        next_part = f"{choice.lower()}.txt"
-        story_part = self.load_story_part(next_part)
-        self.display_story_part(story_part)
 
     def start_game(self, from_play_again=False):
 
