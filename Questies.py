@@ -40,7 +40,7 @@ class AdventureGame:
         self.root.title("Choose Your Own Adventure Game")
         self.valid_choices = []
         self.current_story_part = ''
-      
+
         # Define the desired font
         self.custom_font = font.Font(family="Calibri", size=16)
 
@@ -166,7 +166,7 @@ class AdventureGame:
             if answer and answer.lower() in ['yes', 'no']:
                 break
             else:
-                messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
+                messagebox.showerror("Invalid Input", "Please type 'yes' or 'no'")
         if answer and answer.lower() == 'yes':
             self.story_text.config(state=tk.NORMAL)
             self.story_text.delete('1.0', tk.END)
