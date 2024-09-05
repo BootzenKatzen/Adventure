@@ -137,7 +137,10 @@ class AdventureGame:
 
     def start_game(self, from_play_again=False):
 
-        while True:
+        self.valid_choices = self.get_story_filenames()
+        if not from_play_again:
+            # Ask the player if they have played before only if not coming from play again
+            while True:
                 played_before = simpledialog.askstring("Welcome!", "Hello! Welcome! Have you played before? (yes/no)", parent=root)
                 if played_before and played_before.lower() in ['yes', 'no']:
                     break
@@ -150,7 +153,6 @@ class AdventureGame:
                 story_part = self.load_story_part(intro_part)
                 self.display_story_part(story_part)
                 return  # Return early to avoid asking for a keyword
-
 
         self.root.update_idletasks()  # Update the main window
         while True:
@@ -167,18 +169,20 @@ class AdventureGame:
 
     def play_again(self):
         while True:
-            answer = messagebox.askquestion("Play Again", "Do you want to play again?")
-
-            if answer == 'yes':
-                self.story_text.config(state=tk.NORMAL)
-                self.story_text.delete('1.0', tk.END)
-                self.story_text.config(state=tk.DISABLED)
-                self.root.update_idletasks()
-                self.start_game(from_play_again=True)
-                self.root.update_idletasks()
+            answer = ask_custom_string("Play Again", "Do you want to play again? (yes/no)", parent=root)
+            if answer and answer.lower() in ['yes', 'no']:
+                break
             else:
-                self.root.quit()
-
+                messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
+        if answer and answer.lower() == 'yes':
+            self.story_text.config(state=tk.NORMAL)
+            self.story_text.delete('1.0', tk.END)
+            self.story_text.config(state=tk.DISABLED)
+            self.root.update_idletasks()
+            self.start_game(from_play_again=True)
+            self.root.update_idletasks()
+        else:
+            self.root.quit()
 
 # Main window setup
 root = tk.Tk()
