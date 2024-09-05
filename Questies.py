@@ -156,7 +156,7 @@ class AdventureGame:
 
         self.root.update_idletasks()  # Update the main window
         while True:
-            keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root)
+            keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root).replace(" ", "_")
             if keyword_dialog is None or keyword_dialog == '' or keyword_dialog.capitalize() in self.valid_choices:
                 break
             else:
