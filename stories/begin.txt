@@ -1,1 +1,10 @@
-You wake up in a strange wood beside a path.  Do you want to go: **left** or **right**?
+You are a young human, coming of age in a land of myth and magic.
+You decide it's time to leave the nest, and seek your fortune out in the world.
+You leave your home, waving goodbye to your family, walking boldly down the path ahead of you.
+
+The path leads you to a small town you have visited  a few times before.
+Hunched in the middle of it all is a large buslting tavern.
+
+Would you like to go into the tavern?
+
+**Tavern** or **No tavern**
