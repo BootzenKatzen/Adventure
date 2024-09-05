@@ -137,13 +137,8 @@ class AdventureGame:
 
     def start_game(self, from_play_again=False):
 
-        self.valid_choices = self.get_story_filenames()
-        if not from_play_again:
-            # Ask the player if they have played before only if not coming from play again
-            while True:
+        while True:
                 played_before = simpledialog.askstring("Welcome!", "Hello! Welcome! Have you played before? (yes/no)", parent=root)
-                if not played_before:
-                    played_before = 'no'
                 if played_before and played_before.lower() in ['yes', 'no']:
                     break
                 else:
@@ -151,7 +146,7 @@ class AdventureGame:
             if played_before and played_before.lower() == 'no':
                 # If the player is new, show the introduction
                 self.entry.focus_force()
-                intro_part = "Introduction.txt"
+                intro_part = "introduction.txt"
                 story_part = self.load_story_part(intro_part)
                 self.display_story_part(story_part)
                 return  # Return early to avoid asking for a keyword
