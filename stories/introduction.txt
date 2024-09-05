@@ -4,13 +4,13 @@ This is a choose your own adventure game!
 Choices will be highlighted and in bold **like this**
 Just type in your answer, and away you go!
 
-You may want to keep track of your choices, because on a replay, you can type in a previous choice like "left" or "right" and be taken back to that point.
+You may want to keep track of your choices, because on a replay, you can type in a previous choice like "left path" or "right path" and be taken back to that point.
 This allows you to skip ahead if you want to jump back to where you left off.
 
 By the way, you can type **quit** at any time to leave the game.
 
 If you're ready to start...
 
-Let's **begin**!
+Let's **Begin**!
 
 (type begin to start)
