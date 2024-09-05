@@ -167,23 +167,17 @@ class AdventureGame:
 
     def play_again(self):
         while True:
-            answer = ask_custom_string("Play Again", "Do you want to play again? (yes/no)", parent=root)
+            answer = messagebox.askquestion("Play Again", "Do you want to play again?")
 
-            if not answer:
-                answer = 'yes'
-            if answer and answer.lower() in ['yes', 'no']:
-                break
+            if answer == 'yes':
+                self.story_text.config(state=tk.NORMAL)
+                self.story_text.delete('1.0', tk.END)
+                self.story_text.config(state=tk.DISABLED)
+                self.root.update_idletasks()
+                self.start_game(from_play_again=True)
+                self.root.update_idletasks()
             else:
-                messagebox.showerror("Invalid Input", "Please type 'yes' or 'no'")
-        if answer and answer.lower() == 'yes':
-            self.story_text.config(state=tk.NORMAL)
-            self.story_text.delete('1.0', tk.END)
-            self.story_text.config(state=tk.DISABLED)
-            self.root.update_idletasks()
-            self.start_game(from_play_again=True)
-            self.root.update_idletasks()
-        else:
-            self.root.quit()
+                self.root.quit()
 
 
 # Main window setup
