@@ -45,7 +45,8 @@ class AdventureGame:
         self.custom_font = font.Font(family="Calibri", size=16)
 
         # Set up the scrolled text widget
-        self.story_text = scrolledtext.ScrolledText(root, font=self.custom_font, state=tk.DISABLED, wrap=tk.WORD)
+        self.story_text = scrolledtext.ScrolledText(
+        root, font=self.custom_font, state=tk.DISABLED, wrap=tk.WORD)
         self.story_text.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
         self.story_text.tag_configure(
@@ -65,18 +66,22 @@ class AdventureGame:
         self.start_game()
 
     def get_story_filenames(self):
-        folder_name = "stories"  # Name of the subfolder where your story parts are stored
+        folder_name = "stories"
+        # Name of the subfolder where your story parts are stored
         # List all files in the directory
         files = os.listdir(folder_name)
         # Filter out only .txt files and remove the file extension
-        txt_files = [os.path.splitext(file)[0] for file in files if file.endswith('.txt')]
+        txt_files = [
+        os.path.splitext(file)[0] for file in files if file.endswith('.txt')]
         return txt_files
 
     def find_valid_choices(self, story_part):
-        # Use a regular expression to find all instances of text surrounded by double asterisks
+        # Use a regular expression to find all instances
+        # of text surrounded by double asterisks
         choices = re.findall(r'\*\*(.*?)\*\*', story_part)
         # Remove duplicates and convert to lowercase
-        valid_choices = list(set(choice.replace(' ', '_').lower() for choice in choices))
+        valid_choices = list(
+        set(choice.replace(' ', '_').lower() for choice in choices))
         return valid_choices
 
     def load_story_part(self, filename):
@@ -131,17 +136,22 @@ class AdventureGame:
         elif choice.lower() == 'quit':
             self.root.quit()
         else:
-            # If the input is not a valid choice, display an error message and repeat the last part
-            self.display_story_part("I'm sorry, I didn't understand that. Please try again.\n\n" + self.current_story_part)
+            # If the input is not a valid choice,
+            # display an error message and repeat the last part
+            self.display_story_part(
+            "I'm sorry, I didn't understand that. Please try again.\n\n"
+            + self.current_story_part)
         self.entry.delete(0, tk.END)
 
     def start_game(self, from_play_again=False):
 
         self.valid_choices = self.get_story_filenames()
         if not from_play_again:
-            # Ask the player if they have played before only if not coming from play again
-            
-            played_before = messagebox.askquestion("Welcome!", "Hello! Welcome! Have you played before?", parent=root)
+            # Ask the player if they have played before
+            # only if not coming from play again
+
+            played_before = messagebox.askquestion("Welcome!",
+            "Hello! Welcome! Have you played before?", parent=root)
 
             if played_before == 'no':
 
@@ -155,27 +165,40 @@ class AdventureGame:
 
         self.root.update_idletasks()  # Update the main window
         while True:
-            keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root)
-            if keyword_dialog is None or keyword_dialog == '' or keyword_dialog.capitalize() in self.valid_choices:
+            keyword_dialog = ask_custom_string(
+            "Keyword",
+            "Enter a previous choice (i.e. left or right) \
+to start from a specific part of the story \
+(leave blank to start from the beginning):",
+            parent=self.root).capitalize().replace(" ", "_")
+            if keyword_dialog is None or \
+            keyword_dialog == '' or \
+            keyword_dialog in self.valid_choices:
                 break
             else:
-                messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
+                messagebox.showerror(
+                "Invalid Input",
+                "Please enter a valid choice \
+or leave blank to start from the beginning.")
 
-        start_part = "begin.txt" if not keyword_dialog else f"{keyword_dialog.capitalize()}.txt"
+        start_part = "begin.txt" if not keyword_dialog \
+        else f"{keyword_dialog.capitalize()}.txt"
         story_part = self.load_story_part(start_part)
         self.display_story_part(story_part)
         self.entry.focus_force()
 
     def play_again(self):
         while True:
-            answer = ask_custom_string("Play Again", "Do you want to play again? (yes/no)", parent=root)
+            answer = ask_custom_string("Play Again",
+            "Do you want to play again? (yes/no)", parent=root)
 
             if not answer:
                 answer = 'yes'
             if answer and answer.lower() in ['yes', 'no']:
                 break
             else:
-                messagebox.showerror("Invalid Input", "Please type 'yes' or 'no'")
+                messagebox.showerror("Invalid Input",
+                "Please type 'yes' or 'no'")
         if answer and answer.lower() == 'yes':
             self.story_text.config(state=tk.NORMAL)
             self.story_text.delete('1.0', tk.END)
