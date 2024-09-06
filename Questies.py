@@ -66,7 +66,7 @@ class AdventureGame:
         self.start_game()
 
     def get_story_filenames(self):
-        folder_name = "stories"
+        folder_name = "Stories"
         # Name of the subfolder where your story parts are stored
         # List all files in the directory
         files = os.listdir(folder_name)
