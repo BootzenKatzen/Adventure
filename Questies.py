@@ -167,9 +167,9 @@ class AdventureGame:
 
             keyword_dialog = ask_custom_string(
             "Keyword",
-            "Enter a previous choice (i.e. left or right) \
-to start from a specific part of the story \
-(leave blank to start from the beginning):",
+            "\nEnter a previous choice \n(i.e. left or right) \n\
+to start from a specific part of the story \n\
+or leave blank to start from the beginning:\n",
             parent=self.root).capitalize().replace(" ", "_")
             if keyword_dialog is None or \
             keyword_dialog == '' or \
