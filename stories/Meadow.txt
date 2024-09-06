@@ -1,0 +1,11 @@
+The meadow is brightly lit and full of flowers.
+There is a pleasant breeze blowing through, heavy with a sweet floral scent.
+There doesn't appear to be anything dangerous nearby.
+You feel at ease, yawning as the excitement for today left you with little sleep the night before.
+Perhaps you'd like to take a @@nap@@ here before continuing so your refreshed and ready for anything.
+Or maybe you'd like to try your hand at botany, or even alchemy, and start @@examining@@ the flowers for useful ingredients.
+Or maybe the meadow is too boring for you, and you'd like to explore the @@woods@@ instead.
+
+What will you do?
+
+**Nap** or **Examine** or **Woods**

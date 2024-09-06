@@ -48,6 +48,15 @@ class AdventureGame:
         self.story_text = scrolledtext.ScrolledText(root, font=self.custom_font, state=tk.DISABLED, wrap=tk.WORD)
         self.story_text.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
+        self.story_text.tag_configure(
+        'bold', font=(self.custom_font.actual('family'),
+        self.custom_font.actual('size'), 'bold')
+        )
+
+        self.story_text.tag_configure(
+        'highlight', font=(self.custom_font.actual('family'),
+        self.custom_font.actual('size'), 'bold'), background="PaleGreen"
+        )
         # Set up the entry widget
         self.entry = tk.Entry(root, font=self.custom_font)
         self.entry.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=10)
@@ -82,27 +91,26 @@ class AdventureGame:
 
     def display_story_part(self, story_part):
         # Create a new bold font object and define a highlight tag
-        bold_font = font.Font(family="Arial", size=14, weight='bold')
-        highlight_color = 'PaleGreen'  # Choose a highlight color
         self.current_story_part = story_part
         self.valid_choices = self.find_valid_choices(story_part)
         # Enable the text widget for editing
         self.story_text.config(state=tk.NORMAL)
 
         # Insert the new story part at the end
-        parts = re.split(r'(\*\*.*?\*\*)', story_part)
+        parts = re.split(r'(\*\*.*?\*\*|@@.*?@@)', story_part)
         for part in parts:
             if part.startswith('**') and part.endswith('**'):
                 # Remove the asterisks and apply the bold and highlight tags
+                highlight_text = part[2:-2]
+                self.story_text.insert(tk.END, highlight_text, ('highlight'))
+            elif part.startswith('@@') and part.endswith('@@'):
                 bold_text = part[2:-2]
-                self.story_text.insert(tk.END, bold_text, ('bold', 'highlight'))
+                self.story_text.insert(tk.END, bold_text, ('bold'))
             else:
                 self.story_text.insert(tk.END, part)
 
-        # Configure font and highlight tags
-        self.story_text.insert(tk.END, '\n\n')
-        self.story_text.tag_configure('bold', font=bold_font)
-        self.story_text.tag_configure('highlight', background=highlight_color)
+        # add deliniation between story parts
+        self.story_text.insert(tk.END, "\n\n" + "_" * 50 + '\n\n')
 
         # Disable editing again
         self.story_text.config(state=tk.DISABLED)
@@ -115,7 +123,7 @@ class AdventureGame:
             self.play_again()
 
     def handle_choice(self, event=None):
-        choice = self.entry.get().replace(' ', '_')
+        choice = self.entry.get().replace(' ', '_').capitalize()
         if choice.lower() in self.valid_choices:
             next_part = f"{choice.lower()}.txt"
             story_part = self.load_story_part(next_part)
@@ -132,13 +140,14 @@ class AdventureGame:
         self.valid_choices = self.get_story_filenames()
         if not from_play_again:
             # Ask the player if they have played before only if not coming from play again
-
+            
             played_before = messagebox.askquestion("Welcome!", "Hello! Welcome! Have you played before?", parent=root)
 
             if played_before == 'no':
+
                 # If the player is new, show the introduction
                 self.entry.focus_force()
-                intro_part = "introduction.txt"
+                intro_part = "Introduction.txt"
                 story_part = self.load_story_part(intro_part)
                 self.display_story_part(story_part)
                 return  # Return early to avoid asking for a keyword
@@ -147,12 +156,12 @@ class AdventureGame:
         self.root.update_idletasks()  # Update the main window
         while True:
             keyword_dialog = ask_custom_string("Keyword", "Enter a previous choice (i.e. left or right) to start from a specific part of the story (leave blank to start from the beginning):", parent=self.root)
-            if keyword_dialog is None or keyword_dialog == '' or keyword_dialog.lower() in self.valid_choices:
+            if keyword_dialog is None or keyword_dialog == '' or keyword_dialog.capitalize() in self.valid_choices:
                 break
             else:
                 messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
 
-        start_part = "begin.txt" if not keyword_dialog else f"{keyword_dialog.lower()}.txt"
+        start_part = "begin.txt" if not keyword_dialog else f"{keyword_dialog.capitalize()}.txt"
         story_part = self.load_story_part(start_part)
         self.display_story_part(story_part)
         self.entry.focus_force()
@@ -160,10 +169,13 @@ class AdventureGame:
     def play_again(self):
         while True:
             answer = ask_custom_string("Play Again", "Do you want to play again? (yes/no)", parent=root)
+
+            if not answer:
+                answer = 'yes'
             if answer and answer.lower() in ['yes', 'no']:
                 break
             else:
-                messagebox.showerror("Invalid Input", "Please enter a valid choice or leave blank to start from the beginning.")
+                messagebox.showerror("Invalid Input", "Please type 'yes' or 'no'")
         if answer and answer.lower() == 'yes':
             self.story_text.config(state=tk.NORMAL)
             self.story_text.delete('1.0', tk.END)
