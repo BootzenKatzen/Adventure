@@ -1,5 +1,0 @@
-You head left.
-
-The forest opens into a field and you see a single large poppy growing there.
-
-Do you **pick it** or **leave it**?

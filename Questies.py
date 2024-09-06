@@ -66,7 +66,7 @@ class AdventureGame:
         self.start_game()
 
     def get_story_filenames(self):
-        folder_name = "stories"
+        folder_name = "Stories"
         # Name of the subfolder where your story parts are stored
         # List all files in the directory
         files = os.listdir(folder_name)
@@ -189,18 +189,11 @@ or leave blank to start from the beginning.")
         self.entry.focus_force()
 
     def play_again(self):
-        while True:
-            answer = ask_custom_string("Play Again",
-            "Do you want to play again? (yes/no)", parent=root)
 
-            if not answer:
-                answer = 'yes'
-            if answer and answer.lower() in ['yes', 'no']:
-                break
-            else:
-                messagebox.showerror("Invalid Input",
-                "Please type 'yes' or 'no'")
-        if answer and answer.lower() == 'yes':
+        answer = messagebox.askquestion("Play Again",
+        "Do you want to play again?", parent=root)
+
+        if answer == 'yes':
             self.story_text.config(state=tk.NORMAL)
             self.story_text.delete('1.0', tk.END)
             self.story_text.config(state=tk.DISABLED)
