@@ -162,9 +162,9 @@ class AdventureGame:
                 self.display_story_part(story_part)
                 return  # Return early to avoid asking for a keyword
 
-
         self.root.update_idletasks()  # Update the main window
         while True:
+
             keyword_dialog = ask_custom_string(
             "Keyword",
             "Enter a previous choice (i.e. left or right) \
@@ -183,6 +183,7 @@ or leave blank to start from the beginning.")
 
         start_part = "begin.txt" if not keyword_dialog \
         else f"{keyword_dialog.capitalize()}.txt"
+
         story_part = self.load_story_part(start_part)
         self.display_story_part(story_part)
         self.entry.focus_force()
@@ -208,7 +209,6 @@ or leave blank to start from the beginning.")
             self.root.update_idletasks()
         else:
             self.root.quit()
-
 
 # Main window setup
 root = tk.Tk()
