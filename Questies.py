@@ -140,13 +140,10 @@ class AdventureGame:
         self.valid_choices = self.get_story_filenames()
         if not from_play_again:
             # Ask the player if they have played before only if not coming from play again
-            while True:
-                played_before = simpledialog.askstring("Welcome!", "Hello! Welcome! Have you played before? (yes/no)", parent=root)
-                if played_before and played_before.lower() in ['yes', 'no']:
-                    break
-                else:
-                    messagebox.showerror("Invalid Input", "Please type 'yes' or 'no'")
-            if played_before and played_before.lower() == 'no':
+
+            played_before = messagebox.askquestion("Welcome!", "Hello! Welcome! Have you played before?", parent=root)
+
+            if played_before == 'no':
                 # If the player is new, show the introduction
                 self.entry.focus_force()
                 intro_part = "introduction.txt"
